@@ -1,0 +1,41 @@
+author		{
+		font-size: 0.8em;
+		color: #b4b4b4;
+		font-weight: bold;
+}
+
+.rating	{
+	color: #ffc142;
+}
+
+.final-price 		{
+		font-size: 1.3em;
+		color: #515151;
+		font-weight: bold;
+}
+
+.final-price 	span	{
+		font-size: 0.6em;
+		color: #515151;
+}
+
+.initial-price 		{
+		font-size: 1.0em;
+		color: #787878;
+		font-weight: bold;
+}
+
+.initial-price 	span	{
+		font-size: 0.4em;
+		color: #787878;
+}
+
+footer	{
+	margin-top: 3em;
+	padding-top:1em;
+	border-top: 1px solid #ccc;
+	padding-bottom: 2em;
+	Text-align: center;
+	color: gray;
+	
+}
