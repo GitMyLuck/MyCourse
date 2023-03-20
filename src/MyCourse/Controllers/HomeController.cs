@@ -6,7 +6,6 @@ namespace MyCourse.Controllers
     {
         public IActionResult Index()
         {
-            //return Content("Questa è la home page");
             return View();
         }
     }
