@@ -14,20 +14,10 @@ author		{
 		font-weight: bold;
 }
 
-.final-price 	span	{
-		font-size: 0.6em;
-		color: #515151;
-}
-
 .initial-price 		{
 		font-size: 1.0em;
 		color: #787878;
 		font-weight: bold;
-}
-
-.initial-price 	span	{
-		font-size: 0.4em;
-		color: #787878;
 }
 
 footer	{
@@ -38,4 +28,34 @@ footer	{
 	Text-align: center;
 	color: gray;
 	
+}
+
+/* Course info */
+.course-info {
+    margin-bottom: 2em;
+}
+.course-info aside {
+    background-color: #b3b0b0;
+    padding: 1em;
+    height: 100%;
+}
+.course-info .register-button, .course-info .course-image {
+    margin-top: 1em;
+}
+
+.course-info .price {
+    font-size: 1.3rem;
+}
+
+.course-info .subscribe-course {
+    margin-bottom: 1em;
+}
+
+.course-lessons .lesson-duration i, .course-lessons .course-duration i {
+    margin-right: 0.3em;
+}
+
+.course-lessons .course-duration {
+    font-weight: bold;
+
 }
