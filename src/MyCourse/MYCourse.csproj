@@ -4,5 +4,13 @@
     <!--<TargetFramework>netcoreapp3.1</TargetFramework>-->
     <TargetFramework>netcoreapp6.0</TargetFramework>
   </PropertyGroup>
-
+  <ItemGroup>
+  <Folder Include="wwwroot\" />
+  <!-- file inclusi/esclusi dalla compilazione -->
+  <Compile Remove="Models/Services/Application/CourseService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- pacchetto NuGet per SQLite -->
+    <PackageReference Include="Microsoft.Data.SQLite" Version="7.0.4" />
+  </ItemGroup>
 </Project>

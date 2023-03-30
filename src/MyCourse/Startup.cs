@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCourse.Models.Services.Application;
+using MyCourse.Models.Services.Infrastructure;
 
 namespace MYCourse
 {
@@ -25,8 +26,10 @@ namespace MYCourse
             //***       USO
             // si usa AddTransient quando i servizi sono "veloci da costruire" e quindi
             // non ci sono problemi prestazionali se ne vengono costruite più istanze.
-            services.AddTransient<ICourseService, CourseService>();
 
+            services.AddTransient<ICourseService, AdoNetCourseService>();
+            //services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IDBAccess,SqliteDBAccess>(); 
             // usare l'istanziamento dell'interfaccia AddScoped
             // il Core crea una nuova istanza del servizio e la riutilizza finché siamo nel contesto
             // della stessa richiesta HTTP. Poi viene Distrutta dal GarbageCollector

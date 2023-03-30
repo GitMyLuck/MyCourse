@@ -13,7 +13,10 @@ namespace MyCourse.Models.ValueObjects
             Amount = amount;
             Currency = currency;
         }
+
         private decimal amount = 0;
+        private Currency currency;
+
         public decimal Amount
         { 
             get

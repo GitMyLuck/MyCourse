@@ -8,8 +8,12 @@ namespace MyCourse.Controllers
     public class CoursesController : Controller
     {
         private readonly ICourseService courseService;
+
+        //Ecco il costruttore. Un'istanza di un ICourseService dovrà essere fornita
+        //dall'esterno
         public CoursesController(ICourseService courseService)
         {
+                // copiamo istanza passata come argomento in un campo privato
                 this.courseService = courseService;
         }
         public IActionResult Index()
