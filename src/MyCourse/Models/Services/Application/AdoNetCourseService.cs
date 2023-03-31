@@ -16,10 +16,42 @@ namespace MyCourse.Models.Services.Application
     {
         this.db = db;
     }
+
+    public List<LessonViewModel> GetLessons(int id)
+        {
+            string query = "SELECT * FROM Lessons WHERE CourseId = " + id + ";";
+            DataSet dataSet = db.Query(query);
+            var dataTable = dataSet.Tables[0];
+            var lessonsList = new List<LessonViewModel>();
+            foreach (DataRow lessonRow in dataTable.Rows)
+            {
+                LessonViewModel lesson = LessonViewModel.FromDataLessonRow(lessonRow);
+                lessonsList.Add(lesson);
+            }
+            return lessonsList;
+        }
+
     CourseDetailViewModel ICourseService.GetCourse(int id)
     {
-        throw new System.NotImplementedException();
+        string query = "SELECT * FROM Courses WHERE id = " + id + ";";
+        DataSet dataSet = db.Query(query);
+        var dataTable = dataSet.Tables[0];
+        var course = new CourseDetailViewModel();
+        DataRow detailRow = dataTable.Rows[0];
+        course = CourseDetailViewModel.FromDetailDataRow(detailRow);
+        List<LessonViewModel> lesson = GetLessons(id);
+        foreach (LessonViewModel lessons in lesson)
+         {
+                var l = new LessonViewModel {
+                    Title = lessons.Title,
+                    Description = lessons.Description
+                    //Gestione Duration in formato timespan
+                };
+                course.Lessons.Add(l);
+            }
+        return course;
     }
+
 
     List<CourseViewModel> ICourseService.GetCourses()
     {

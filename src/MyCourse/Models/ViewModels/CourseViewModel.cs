@@ -39,5 +39,7 @@ namespace MyCourse.Models.ViewModels
             };
             return CourseViewModel;
         }
+
+        
     }
 }
