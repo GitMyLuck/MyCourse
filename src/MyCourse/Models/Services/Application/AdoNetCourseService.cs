@@ -1,5 +1,6 @@
 
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using MyCourse.Models.Services.Infrastructure;
@@ -17,39 +18,29 @@ namespace MyCourse.Models.Services.Application
         this.db = db;
     }
 
-    public List<LessonViewModel> GetLessons(int id)
-        {
-            string query = "SELECT * FROM Lessons WHERE CourseId = " + id + ";";
-            DataSet dataSet = db.Query(query);
-            var dataTable = dataSet.Tables[0];
-            var lessonsList = new List<LessonViewModel>();
-            foreach (DataRow lessonRow in dataTable.Rows)
-            {
-                LessonViewModel lesson = LessonViewModel.FromDataLessonRow(lessonRow);
-                lessonsList.Add(lesson);
-            }
-            return lessonsList;
-        }
-
     CourseDetailViewModel ICourseService.GetCourse(int id)
     {
-        string query = "SELECT * FROM Courses WHERE id = " + id + ";";
+        string query = "SELECT * FROM Courses WHERE id = " + id + "; SELECT * FROM Lessons WHERE CourseId = " + id + ";";
         DataSet dataSet = db.Query(query);
-        var dataTable = dataSet.Tables[0];
-        var course = new CourseDetailViewModel();
-        DataRow detailRow = dataTable.Rows[0];
-        course = CourseDetailViewModel.FromDetailDataRow(detailRow);
-        List<LessonViewModel> lesson = GetLessons(id);
-        foreach (LessonViewModel lessons in lesson)
-         {
-                var l = new LessonViewModel {
-                    Title = lessons.Title,
-                    Description = lessons.Description
-                    //Gestione Duration in formato timespan
-                };
-                course.Lessons.Add(l);
-            }
-        return course;
+
+        // Course
+        var courseTable = dataSet.Tables[0];
+        if (courseTable.Rows.Count != 1)    {
+            throw new InvalidOperationException($"nessuna riga restituita per il corso {id}");
+        }
+        var courseRow = courseTable.Rows[0];
+        var courseDetailViewModel = CourseDetailViewModel.FromDetailDataRow(courseRow);
+
+        // Course lessons
+        //  preleva la seconda tabella restituita dal dataSet (quella indicizzata[1]..)
+        //  corrispondente alla seconda query passata, quella che si occupa di prelevare le righe delle lezioni
+        var lessonDataTable = dataSet.Tables[1];
+        foreach (DataRow lessonRow in lessonDataTable.Rows) {
+            LessonViewModel lessonViewModel = LessonViewModel.FromDataLessonRow(lessonRow);
+            courseDetailViewModel.Lessons.Add(lessonViewModel);
+        }
+
+        return courseDetailViewModel;
     }
 
 

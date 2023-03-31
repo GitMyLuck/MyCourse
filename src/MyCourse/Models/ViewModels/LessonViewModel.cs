@@ -13,10 +13,13 @@ namespace MyCourse.Models.ViewModels
 
         public static LessonViewModel FromDataLessonRow(DataRow courseLessonsRow)
         {
+            string lessonDuration = (string)courseLessonsRow["Duration"];
             var LessonViewModel = new LessonViewModel
             {
+                
                 Title = Convert.ToString(courseLessonsRow["Title"]),
-                Description = Convert.ToString(courseLessonsRow["Description"])
+                Description = Convert.ToString(courseLessonsRow["Description"]),
+                Duration = TimeSpan.Parse(lessonDuration)
             };
             return LessonViewModel;
             
