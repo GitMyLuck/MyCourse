@@ -20,7 +20,7 @@ namespace MyCourse.Models.Services.Application
 
     CourseDetailViewModel ICourseService.GetCourse(int id)
     {
-        string query = "SELECT * FROM Courses WHERE id = " + id + "; SELECT * FROM Lessons WHERE CourseId = " + id + ";";
+        FormattableString query = $@"SELECT * FROM Courses WHERE id ={id}; SELECT * FROM Lessons WHERE CourseId ={id};";
         DataSet dataSet = db.Query(query);
 
         // Course
@@ -46,7 +46,7 @@ namespace MyCourse.Models.Services.Application
 
     List<CourseViewModel> ICourseService.GetCourses()
     {
-        string query = "SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses";
+        FormattableString query = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses";
         DataSet dataSet = db.Query(query);
         var dataTable = dataSet.Tables[0];
         var courseList = new List<CourseViewModel>();

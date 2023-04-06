@@ -15,7 +15,6 @@ namespace MyCourse.Models.ValueObjects
         }
 
         private decimal amount = 0;
-        private Currency currency;
 
         public decimal Amount
         { 
