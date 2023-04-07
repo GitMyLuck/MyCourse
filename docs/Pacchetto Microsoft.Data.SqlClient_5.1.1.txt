@@ -1,0 +1,1 @@
+dotnet add package Microsoft.Data.SqlClient --version 5.1.1

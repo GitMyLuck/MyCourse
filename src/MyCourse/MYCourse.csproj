@@ -11,6 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- pacchetto NuGet per SQLite -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Microsoft.Data.SQLite" Version="7.0.4" />
   </ItemGroup>
 </Project>
