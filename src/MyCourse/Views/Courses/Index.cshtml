@@ -1,7 +1,38 @@
 
 @model List<CourseViewModel>
 
+<script type="text/javascript">
+            $(document).ready(function()    {
+                // eventuale codice javascript
+            });
+</script>
+
+
 <h1>@ViewData["Title"]</h1>
+
+<div class = "row">
+<div class="col-md-5"></div>
+
+<div class="dropdown col-md-3">
+  <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ordina per ...
+    <span class="badge bg-warning" id="order-badge" style="color:black;">@Model[0].order</span>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" asp-action="Index" asp-route-order="pop">Popolarità</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" asp-action="Index" asp-route-order="pincr">Prezzo Crescente</a>
+    <a class="dropdown-item" asp-action="Index" asp-route-order="pdec">Prezzo Decrescente</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" asp-action="Index" asp-route-order="alf">Ordine Alfabetico</a>
+    <a class="dropdown-item" asp-action="Index" asp-route-order="aut">Autore</a>
+  </div>
+</div>
+
+
+</div><!-- end of row class -->
+
+
 @foreach(CourseViewModel course in Model)
 {
 <hr>
@@ -45,10 +76,12 @@
         }
     </div>
     <div class="col-md-2">
-    <a class="btn btn-outline-primary" 
+    <a class="btn btn-outline-primary"
     asp-action="Detail" asp-route-id="@course.Id">Dettagli</a>
 
     </div>
 </div>
 <br/>
+
 }
+

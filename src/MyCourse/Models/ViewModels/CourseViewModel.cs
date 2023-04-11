@@ -17,6 +17,8 @@ namespace MyCourse.Models.ViewModels
         public Money FullPrice { get; set; }
         public Money CurrentPrice { get; set; }
 
+        public string order { get; set; }
+
         public static CourseViewModel FromDataRow(DataRow courseRow)
         {
             var CourseViewModel = new CourseViewModel
@@ -33,7 +35,8 @@ namespace MyCourse.Models.ViewModels
                 CurrentPrice = new Money(
                     Enum.Parse<Currency>(Convert.ToString(courseRow["CurrentPrice_Currency"])),
                     Convert.ToDecimal(courseRow["CurrentPrice_Amount"])
-                )
+                ),
+                order = ""
 
 
             };

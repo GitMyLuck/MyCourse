@@ -1,11 +1,5 @@
-/*using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;*/
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCourse.Models.Services.Application;
@@ -29,7 +23,13 @@ namespace MYCourse
 
             services.AddTransient<ICourseService, AdoNetCourseService>();
             //services.AddTransient<ICourseService, CourseService>();
-            services.AddTransient<IDBAccess,SqliteDBAccess>(); 
+
+            // servizio ottenuto con SQLite
+            //services.AddTransient<IDBAccess,SqliteDBAccess>();
+
+            // servizio ottenuto con SQLServer Management 
+            services.AddTransient<IDBAccess,SQLServerDBAccess>();
+
             // usare l'istanziamento dell'interfaccia AddScoped
             // il Core crea una nuova istanza del servizio e la riutilizza finché siamo nel contesto
             // della stessa richiesta HTTP. Poi viene Distrutta dal GarbageCollector
@@ -53,14 +53,6 @@ namespace MYCourse
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //Aggiorniamo un file per notificare al BrowserSync che deve aggiornare la pagina
-                /*lifetime.ApplicationStarted.Register(()  =>
-                {
-                    
-                    string filePath = Path.Combine(env.ContentRootPath, "bin/reload.txt");
-                    File.WriteAllText(filePath, DateTime.Now.ToString());
-                    
-                });*/
             }
 
             app.UseStaticFiles();
@@ -74,6 +66,9 @@ namespace MYCourse
                 //  il punto interrogativo ? all'interno della sezione {id} significa che il
                 //  parametro è opzionale
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=index}/{id?}");
+
+                // creiamo route controller alternativo per l'ordine di visualizzazione dei corsi
+                endpoints.MapControllerRoute("orderMap", "{controller=Home}/{action=index}/{order?}");
                 
             });
         }

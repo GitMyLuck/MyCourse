@@ -14,6 +14,7 @@ namespace MyCourse.Models.ViewModels
 
         public TimeSpan TotalCourseDuration
         {
+            // metodo che aomma la durata di tutte le lezioni..
             get => TimeSpan.FromSeconds(Lessons?.Sum(l => l.Duration.TotalSeconds) ?? 0);
         }
 

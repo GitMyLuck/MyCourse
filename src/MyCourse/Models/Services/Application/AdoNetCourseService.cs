@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
+using MyCourse.Models.Enums;
 
 namespace MyCourse.Models.Services.Application
 {
@@ -44,15 +45,57 @@ namespace MyCourse.Models.Services.Application
     }
 
 
-    List<CourseViewModel> ICourseService.GetCourses()
+    List<CourseViewModel> ICourseService.GetCourses(string order)
     {
-        FormattableString query = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses";
+        // preparo stringa da passare alla view
+        string orderText;
+        //  viene passato alias per il tipo di ordinamento da fare
+        switch(order)
+        {
+            // ordine alfabetico
+            case "alf":
+            order = "Title";
+            orderText = "Ordine Alfabetico";
+            break;
+            
+            // ordine prezzo ascendente
+            case "pincr":
+            order = "CurrentPrice_Amount ASC";
+            orderText = "Prezzo Crescente";
+            break;
+
+            // ordine prezzo discendente ( dal più caro al meno caro )
+            case "pdec":
+            order = "CurrentPrice_Amount DESC";
+            orderText = "Prezzo Decrescente";
+            break;
+
+            // ordine popolarità dal più quotato al meno quotato
+            case "pop":
+            order = "Rating DESC";
+            orderText = "Popolarità";
+            break;
+
+            // ordine per autore alfabetico
+            case "aut":
+            order = "Author";
+            orderText = "Autore";
+            break;
+
+            // valore di default  popolarità
+            default:
+            order = "Rating DESC";
+            orderText = "Popolarità";
+            break;
+        }
+        FormattableString query = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses ORDER BY {order}";
         DataSet dataSet = db.Query(query);
         var dataTable = dataSet.Tables[0];
         var courseList = new List<CourseViewModel>();
         foreach(DataRow courseRow in dataTable.Rows)
         {
             CourseViewModel course = CourseViewModel.FromDataRow(courseRow);
+            course.order = orderText;
             courseList.Add(course);
         }
         return courseList;
