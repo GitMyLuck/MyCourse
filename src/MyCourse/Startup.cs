@@ -68,7 +68,7 @@ namespace MYCourse
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=index}/{id?}");
 
                 // creiamo route controller alternativo per l'ordine di visualizzazione dei corsi
-                endpoints.MapControllerRoute("orderMap", "{controller=Home}/{action=index}/{order?}");
+                endpoints.MapControllerRoute("orderMap", "{controller=Home}/{action=index}/{order?}/{search?}");
                 
             });
         }

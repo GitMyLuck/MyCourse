@@ -8,7 +8,7 @@ namespace MyCourse.Models.Services.Application
 {
     public class CourseService : ICourseService
     {
-        public List<CourseViewModel> GetCourses(string order)
+        public List<CourseViewModel> GetCourses(string order, string search)
         {
         List<CourseViewModel> courseList = new();
         Random rand = new();

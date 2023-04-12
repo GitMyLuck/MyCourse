@@ -45,7 +45,7 @@ namespace MyCourse.Models.Services.Application
     }
 
 
-    List<CourseViewModel> ICourseService.GetCourses(string order)
+    List<CourseViewModel> ICourseService.GetCourses(string order, string search)
     {
         // preparo stringa da passare alla view
         string orderText;
@@ -88,7 +88,8 @@ namespace MyCourse.Models.Services.Application
             orderText = "Popolarità";
             break;
         }
-        FormattableString query = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses ORDER BY {order}";
+        FormattableString query = $@"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses 
+        WHERE Title LIKE '%{search}%' ORDER BY {order}";
         DataSet dataSet = db.Query(query);
         var dataTable = dataSet.Tables[0];
         var courseList = new List<CourseViewModel>();
@@ -96,6 +97,7 @@ namespace MyCourse.Models.Services.Application
         {
             CourseViewModel course = CourseViewModel.FromDataRow(courseRow);
             course.order = orderText;
+            course.search = search;
             courseList.Add(course);
         }
         return courseList;

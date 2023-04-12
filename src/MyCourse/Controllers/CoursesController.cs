@@ -18,9 +18,9 @@ namespace MyCourse.Controllers
                 // preceduta dal prefisso "this."
                 this.courseService = courseService;
         }
-        public IActionResult Index(string order = "default")
+        public IActionResult Index(string order = "default", string search = "")
         {
-            List<CourseViewModel> courses = this.courseService.GetCourses(order);
+            List<CourseViewModel> courses = this.courseService.GetCourses(order, search);
             // il ViewData["Title"] imposta il <Title> della pagina
             ViewData["Title"] = "Catalogo Dei Corsi";
             return View(courses);
