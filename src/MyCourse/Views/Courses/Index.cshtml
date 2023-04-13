@@ -12,7 +12,8 @@
 
 <div class = "row">
 <div class="col-md-4">
-
+@{// inserire qui i due pulsanti con icone accese il valore di default sara'list 
+}
 
 </div>
 
@@ -115,3 +116,24 @@ else
     <h2>Nessun record trovato!</h2>
 }
 }
+
+
+
+<div class="row">
+@{  int num = Model.Count;
+//  una volta sistemato il layout predisporre nuova pagina che punta alle
+//  cards...
+foreach (CourseViewModel course in Model)  {
+<div class="card col-md-3">
+  <div class="card-body" style="padding: 1em 0em;">
+    <img src="@course.ImagePath" class="card-img-top" >
+    <h5 class="card-title">@course.Title</h5>
+    <p class="card-text ell" >Some quick Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. Suspendisse vulputate aliquam dui.</p>
+    <a href="#" class="btn btn-primary">Dettagli</a>
+  </div>
+</div>
+
+}
+
+}
+</div>

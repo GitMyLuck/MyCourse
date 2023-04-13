@@ -30,15 +30,32 @@ footer	{
 	
 }
 
+/*  cards visualization		*/
+
+/* tronca il testo della descrizione */
+.ell	{
+	
+	width: 100%;
+  	max-height: 8rem;
+  	-webkit-box-orient: vertical;
+	display: block;
+  	display: -webkit-box;
+  	overflow: hidden !important;
+  	text-overflow: ellipsis;
+  	-webkit-line-clamp: 4;
+}
+
 /* Course info */
 .course-info {
     margin-bottom: 2em;
 }
+
 .course-info aside {
     background-color: #b3b0b0;
     padding: 1em;
     height: 100%;
 }
+
 .course-info .register-button, .course-info .course-image {
     margin-top: 1em;
 }
