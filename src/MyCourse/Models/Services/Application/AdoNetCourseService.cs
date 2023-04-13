@@ -6,6 +6,7 @@ using System.Data;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
 using MyCourse.Models.Enums;
+using System.Threading.Tasks;
 
 namespace MyCourse.Models.Services.Application
 {
@@ -19,10 +20,10 @@ namespace MyCourse.Models.Services.Application
         this.db = db;
     }
 
-    CourseDetailViewModel ICourseService.GetCourse(int id)
+    async Task<CourseDetailViewModel> ICourseService.GetCourseAsync(int id)
     {
         FormattableString query = $@"SELECT * FROM Courses WHERE id ={id}; SELECT * FROM Lessons WHERE CourseId ={id};";
-        DataSet dataSet = db.Query(query);
+        DataSet dataSet = await db.QueryAsync(query);
 
         // Course
         var courseTable = dataSet.Tables[0];
@@ -45,7 +46,7 @@ namespace MyCourse.Models.Services.Application
     }
 
 
-    List<CourseViewModel> ICourseService.GetCourses(string order, string search)
+    async Task<List<CourseViewModel>> ICourseService.GetCoursesAsync(string order, string search)
     {
         // preparo stringa da passare alla view
         string orderText;
@@ -90,7 +91,7 @@ namespace MyCourse.Models.Services.Application
         }
         FormattableString query = $@"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses 
         WHERE Title LIKE '%{search}%' ORDER BY {order}";
-        DataSet dataSet = db.Query(query);
+        DataSet dataSet = await db.QueryAsync(query);
         var dataTable = dataSet.Tables[0];
         var courseList = new List<CourseViewModel>();
         foreach(DataRow courseRow in dataTable.Rows)

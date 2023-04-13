@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
 namespace MyCourse.Models.Services.Infrastructure
@@ -9,7 +10,7 @@ namespace MyCourse.Models.Services.Infrastructure
     {
         
 
-public  DataSet Query(FormattableString formattableQuery)
+public  async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
              //Creiamo dei SqliteParameter a partire dalla FormattableString
             var queryArguments = formattableQuery.GetArguments();
@@ -25,7 +26,7 @@ public  DataSet Query(FormattableString formattableQuery)
             //Colleghiamoci al database Sqlite, inviamo la query e leggiamo i risultati
             using(var conn = new SqliteConnection("Data Source=Data/MyCourse.db"))
             {
-                conn.Open();
+                await conn.OpenAsync();
                 using (var cmd = new SqliteCommand(query, conn))
                 {
                     //Aggiungiamo i SqliteParameters al SqliteCommand
@@ -33,7 +34,7 @@ public  DataSet Query(FormattableString formattableQuery)
 
                     //Inviamo la query al database e otteniamo un SqliteDataReader
                     //per leggere i risultati
-                    using (var reader = cmd.ExecuteReader())
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
                         var dataSet = new DataSet();
                         

@@ -1,12 +1,13 @@
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MyCourse.Models.ViewModels;
 
 namespace MyCourse.Models.Services.Application
 {
     public interface ICourseService
     {
-        List<CourseViewModel> GetCourses(string order, string search);
-        CourseDetailViewModel GetCourse(int id);
+        Task<List<CourseViewModel>> GetCoursesAsync(string order, string search);
+        Task<CourseDetailViewModel> GetCourseAsync(int id);
     }
 }

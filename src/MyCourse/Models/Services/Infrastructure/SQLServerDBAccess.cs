@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
 
@@ -8,7 +9,7 @@ namespace MyCourse.Models.Services.Infrastructure
 {
     public class SQLServerDBAccess : IDBAccess
     {
-        public  DataSet Query(FormattableString formattableQuery)
+        public  async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
                 
                 string connetionString =  @"Data Source=MAIN-PC\SQLEXPRESS;
@@ -30,14 +31,14 @@ namespace MyCourse.Models.Services.Infrastructure
                 
                 using (var conn = new SqlConnection(connetionString))
                 {
-                    conn.Open();
+                    await conn.OpenAsync();
                     
 
                     // viene lanciata la query
                     using (var command = new SqlCommand(query, conn))
                     {
 
-                                using(var  reader = command.ExecuteReader())
+                                using(var  reader = await command.ExecuteReaderAsync())
                                 {
                                         var dataSet = new DataSet();
                                         do

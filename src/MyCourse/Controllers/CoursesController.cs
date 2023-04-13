@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyCourse.Models.Services.Application;
 using MyCourse.Models.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyCourse.Controllers
 {
@@ -18,17 +19,17 @@ namespace MyCourse.Controllers
                 // preceduta dal prefisso "this."
                 this.courseService = courseService;
         }
-        public IActionResult Index(string order = "default", string search = "")
+        public async Task<IActionResult> Index(string order = "default", string search = "")
         {
-            List<CourseViewModel> courses = this.courseService.GetCourses(order, search);
+            List<CourseViewModel> courses = await this.courseService.GetCoursesAsync(order, search);
             // il ViewData["Title"] imposta il <Title> della pagina
             ViewData["Title"] = "Catalogo Dei Corsi";
             return View(courses);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            CourseDetailViewModel  viewModel = this.courseService.GetCourse(id);
+            CourseDetailViewModel  viewModel = await this.courseService.GetCourseAsync(id);
             // il ViewData["Title"] imposta il <Title> della pagina
             ViewData["Title"] = viewModel.Title;
             return View(viewModel);
