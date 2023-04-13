@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyCourse.Models.Services.Application;
 using MyCourse.Models.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyCourse.Controllers
 {
@@ -16,16 +17,16 @@ namespace MyCourse.Controllers
                 // copiamo istanza passata come argomento in un campo privato
                 this.courseService = courseService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<CourseViewModel> courses = this.courseService.GetCourses();
+            List<CourseViewModel> courses = await this.courseService.GetCoursesAsync();
             ViewData["Title"] = "Catalogo Dei Corsi";
             return View(courses);
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            CourseDetailViewModel  viewModel = this.courseService.GetCourse(id);
+            CourseDetailViewModel viewModel = await this.courseService.GetCourseAsync(id);
             ViewData["Title"] = viewModel.Title;
             return View(viewModel);
         }
