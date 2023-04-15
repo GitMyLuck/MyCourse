@@ -27,7 +27,7 @@ namespace MyCourse.Models.Services.Application
         // Course
         var courseTable = dataSet.Tables[0];
         if (courseTable.Rows.Count != 1)    {
-            throw new InvalidOperationException($"nessuna riga restituita per il corso {id}");
+            throw new InvalidOperationException($"OOPS!.. Qualcosa è andato storto\ncon il corso {id}");
         }
         var courseRow = courseTable.Rows[0];
         var courseDetailViewModel = CourseDetailViewModel.FromDetailDataRow(courseRow);
