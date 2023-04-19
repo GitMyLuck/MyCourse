@@ -10,24 +10,24 @@ namespace MyCourse.Models.Services.Application
     {
         public List<CourseViewModel> GetCourses()
         {
-        List<CourseViewModel> courseList = new();
-        Random rand = new();
-        for (int i = 1; i <= 20; i++)
-        {
-            decimal price = Convert.ToDecimal(rand.NextDouble() * 10 + 10);
-            CourseViewModel course = new()
+            var courseList = new List<CourseViewModel>();
+            var rand = new Random();
+            for (int i = 1; i <= 20; i++)
             {
-                Id = i,
-                Title = $"Corso {i}",
-                CurrentPrice = new Money(Currency.EUR, price),
-                FullPrice = new Money(Currency.EUR, rand.NextDouble() > 0.5 ? price : price + 5),
-                Author = "Nome cognome",
-                Rating = rand.Next(10, 50) / 10.0,
-                ImagePath = "/images/default58.png"
-            };
-            courseList.Add(course);
-        }
-        return courseList;
+                var price = Convert.ToDecimal(rand.NextDouble() * 10 + 10);
+                var course = new CourseViewModel
+                {
+                    Id = i,
+                    Title = $"Corso {i}",
+                    CurrentPrice = new Money(Currency.EUR, price),
+                    FullPrice = new Money(Currency.EUR, rand.NextDouble() > 0.5 ? price : price + 1),
+                    Author = "Nome cognome",
+                    Rating = rand.Next(10, 50) / 10.0,
+                    ImagePath = "/logo.svg"
+                };
+                courseList.Add(course);
+            }
+            return courseList;
         }
 
         public CourseDetailViewModel GetCourse(int id)
@@ -57,6 +57,5 @@ namespace MyCourse.Models.Services.Application
 
             return course;
         }
-
     }
 }

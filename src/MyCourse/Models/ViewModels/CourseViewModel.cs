@@ -1,4 +1,3 @@
-
 using System;
 using System.Data;
 using MyCourse.Models.Enums;
@@ -8,7 +7,6 @@ namespace MyCourse.Models.ViewModels
 {
     public class CourseViewModel
     {
-
         public int Id { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
@@ -19,9 +17,7 @@ namespace MyCourse.Models.ViewModels
 
         public static CourseViewModel FromDataRow(DataRow courseRow)
         {
-            var CourseViewModel = new CourseViewModel
-            {
-                Id = Convert.ToInt32(courseRow["Id"]),
+            var courseViewModel = new CourseViewModel {
                 Title = Convert.ToString(courseRow["Title"]),
                 ImagePath = Convert.ToString(courseRow["ImagePath"]),
                 Author = Convert.ToString(courseRow["Author"]),
@@ -33,13 +29,10 @@ namespace MyCourse.Models.ViewModels
                 CurrentPrice = new Money(
                     Enum.Parse<Currency>(Convert.ToString(courseRow["CurrentPrice_Currency"])),
                     Convert.ToDecimal(courseRow["CurrentPrice_Amount"])
-                )
-
-
+                ),
+                Id = Convert.ToInt32(courseRow["Id"])
             };
-            return CourseViewModel;
+            return courseViewModel;
         }
-
-        
     }
 }

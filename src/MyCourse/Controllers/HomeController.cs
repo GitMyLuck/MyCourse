@@ -6,7 +6,7 @@ namespace MyCourse.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Title"] = "homepage";
+            ViewData["Title"] = "Benvenuto su MyCourse!";
             return View();
         }
     }

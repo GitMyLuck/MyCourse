@@ -17,11 +17,10 @@ namespace MyCourse.Models.ViewModels
             get => TimeSpan.FromSeconds(Lessons?.Sum(l => l.Duration.TotalSeconds) ?? 0);
         }
 
-        public static CourseDetailViewModel FromDetailDataRow(DataRow courseRow)
+        public static new CourseDetailViewModel FromDataRow(DataRow courseRow)
         {
-            var CourseDetailViewModel = new CourseDetailViewModel
+            var courseDetailViewModel = new CourseDetailViewModel
             {
-                Id = Convert.ToInt32(courseRow["Id"]),
                 Title = Convert.ToString(courseRow["Title"]),
                 Description = Convert.ToString(courseRow["Description"]),
                 ImagePath = Convert.ToString(courseRow["ImagePath"]),
@@ -35,10 +34,10 @@ namespace MyCourse.Models.ViewModels
                     Enum.Parse<Currency>(Convert.ToString(courseRow["CurrentPrice_Currency"])),
                     Convert.ToDecimal(courseRow["CurrentPrice_Amount"])
                 ),
+                Id = Convert.ToInt32(courseRow["Id"]),
                 Lessons = new List<LessonViewModel>()
             };
-            
-            return CourseDetailViewModel;
-        }  
+            return courseDetailViewModel;
+        }
     }
 }
