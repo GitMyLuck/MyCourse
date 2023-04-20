@@ -11,13 +11,23 @@
   </ItemGroup>
   <ItemGroup>
     <!-- pacchetto NuGet per SQLite -->
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+    <!-- commentare quando si usa SQLServer -->
     <PackageReference Include="Microsoft.Data.SQLite" Version="6.0.0" />
+    <!-- pacchetto NuGet per SQLServer -->
+    <!-- commentare quando si usa SQLIte -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
+
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <!-- pacchetto NuGet per SQLite -->
+    <!-- commentare quando si usa SQLServer -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
+    <!-- pacchetto NuGet per SQLServer -->
+    <!-- commentare quando si usa SQLite -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+
     
   </ItemGroup>
 </Project>
