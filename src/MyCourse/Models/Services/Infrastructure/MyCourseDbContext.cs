@@ -21,7 +21,7 @@ public partial class MyCourseDbContext : DbContext
     public virtual DbSet<Lesson> Lessons { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning Per proteggere le informazioni potenzialmente riservate nella stringa di connessione, dovresti spostarle fuori dal codice sorgente. È possibile evitare l'impalcatura della stringa di connessione usando la sintassi Name= per leggerla dalla configurazione: vedere https://go.microsoft.com/fwlink/?linkid=2131148. Per ulteriori indicazioni sull'archiviazione delle stringhe di connessione, vedere http://go.microsoft.com/fwlink/?LinkId=723263.
+/*Per proteggere le informazioni potenzialmente riservate nella stringa di connessione, dovresti spostarle fuori dal codice sorgente. È possibile evitare l'impalcatura della stringa di connessione usando la sintassi Name= per leggerla dalla configurazione: vedere https://go.microsoft.com/fwlink/?linkid=2131148. Per ulteriori indicazioni sull'archiviazione delle stringhe di connessione, vedere http://go.microsoft.com/fwlink/?LinkId=723263.*/
 
         => optionsBuilder.UseSqlite("Data Source=Data/MyCourse.db");
 
