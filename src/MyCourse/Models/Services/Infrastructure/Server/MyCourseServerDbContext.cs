@@ -21,7 +21,7 @@ public partial class MyCourseServerDbContext : DbContext
     public virtual DbSet<Lesson> Lessons { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+/*Per proteggere le informazioni potenzialmente riservate nella stringa di connessione, dovresti spostarle fuori dal codice sorgente. È possibile evitare l'impalcatura della stringa di connessione usando la sintassi Name= per leggerla dalla configurazione: vedere https://go.microsoft.com/fwlink/?linkid=2131148. Per ulteriori indicazioni sull'archiviazione delle stringhe di connessione, vedere http://go.microsoft.com/fwlink/?LinkId=723263.*/
         => optionsBuilder.UseSqlServer("Data Source=MAIN-PC\\SQLEXPRESS;Initial Catalog=MyCourse;Integrated Security=true;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,6 +30,17 @@ public partial class MyCourseServerDbContext : DbContext
 
         modelBuilder.Entity<Course>(entity =>
         {
+            entity.ToTable("Courses");          // Superfluo se la tabella si chiama come la classe che
+                                                // rappresenta lo schema concettuale
+
+            entity.HasKey(course => course.Id); // Superfluo se il campo si chiama esattamente
+                                                // come il campo chiave primaria che stiamo inizializzando
+            
+                                                // caso in cui vi sia la necessità di indicare più chiavi primarie
+                                                // entity.HasKey( course => new {course.Id, course.Author});
+
+        #region  Mapping generato automaticamente dal tool di reverse engineering
+            /*
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Author)
                 .IsRequired()
@@ -65,11 +76,14 @@ public partial class MyCourseServerDbContext : DbContext
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(100)
-                .IsUnicode(false);
+                .IsUnicode(false);*/
+            #endregion
         });
 
         modelBuilder.Entity<Lesson>(entity =>
         {
+        #region  Mapping generato automaticamente dal tool di reverse engineering
+            /*
             entity.HasNoKey();
 
             entity.Property(e => e.Description)
@@ -82,7 +96,8 @@ public partial class MyCourseServerDbContext : DbContext
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(100)
-                .IsUnicode(false);
+                .IsUnicode(false);*/
+        #endregion
         });
 
         OnModelCreatingPartial(modelBuilder);

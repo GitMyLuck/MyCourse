@@ -27,42 +27,69 @@ public partial class MyCourseDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
+
         modelBuilder.Entity<Course>(entity =>
         {
+            entity.ToTable("Courses");  // Superfluo se la tabella si chiama come la proprietà
+                                        // 
+            entity.HasKey(course => course.Id); // Superfluo se il campo si chiama esattamente
+                                                // come il campo chiave primaria che stiamo inizializzando
+            
+                                                // caso in cui vi sia la necessità di indicare più chiavi primarie
+                                                //entity.HasKey( course => new {course.Id, course.Author});
+
+            #region Mapping generato automaticamente dal tool di reverse engineering
+            /*
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
             entity.Property(e => e.Author)
                 .IsRequired()
                 .HasColumnType("TEXT (100)");
+
             entity.Property(e => e.CurrentPriceAmount)
                 .IsRequired()
                 .HasDefaultValueSql("0")
                 .HasColumnType("NUMERIC")
                 .HasColumnName("CurrentPrice_Amount");
+
             entity.Property(e => e.CurrentPriceCurrency)
                 .IsRequired()
                 .HasDefaultValueSql("'EUR'")
                 .HasColumnType("TEXT (3)")
                 .HasColumnName("CurrentPrice_Currency");
-            entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
+
+            entity.Property(e => e.Description)
+            .HasColumnType("TEXT (10000)");
+
             entity.Property(e => e.Email).HasColumnType("TEXT (100)");
+
             entity.Property(e => e.FullPriceAmount)
                 .IsRequired()
                 .HasDefaultValueSql("0")
                 .HasColumnType("NUMERIC")
                 .HasColumnName("FullPrice_Amount");
+
             entity.Property(e => e.FullPriceCurrency)
                 .IsRequired()
                 .HasDefaultValueSql("'EUR'")
                 .HasColumnType("TEXT (3)")
                 .HasColumnName("FullPrice_Currency");
-            entity.Property(e => e.ImagePath).HasColumnType("TEXT (100)");
+
+            entity.Property(e => e.ImagePath)
+            .HasColumnType("TEXT (100)");
+
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasColumnType("TEXT (100)");
+                */
+                #endregion
         });
 
         modelBuilder.Entity<Lesson>(entity =>
         {
-            entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
+            #region Mapping automatico
+            /*entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
             entity.Property(e => e.Duration)
                 .IsRequired()
                 .HasDefaultValueSql("'00:00:00'")
@@ -71,7 +98,8 @@ public partial class MyCourseDbContext : DbContext
                 .IsRequired()
                 .HasColumnType("TEXT (100)");
 
-            entity.HasOne(d => d.Course).WithMany(p => p.Lessons).HasForeignKey(d => d.CourseId);
+            entity.HasOne(d => d.Courses).WithMany(p => p.Lessons).HasForeignKey(d => d.CourseId);*/
+            #endregion
         });
 
         OnModelCreatingPartial(modelBuilder);
