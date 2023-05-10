@@ -22,7 +22,9 @@ public partial class MyCourseServerDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 /*Per proteggere le informazioni potenzialmente riservate nella stringa di connessione, dovresti spostarle fuori dal codice sorgente. È possibile evitare l'impalcatura della stringa di connessione usando la sintassi Name= per leggerla dalla configurazione: vedere https://go.microsoft.com/fwlink/?linkid=2131148. Per ulteriori indicazioni sull'archiviazione delle stringhe di connessione, vedere http://go.microsoft.com/fwlink/?LinkId=723263.*/
-        => optionsBuilder.UseSqlServer("Data Source=MAIN-PC\\SQLEXPRESS;Initial Catalog=MyCourse;Integrated Security=true;TrustServerCertificate=true;");
+       /* => optionsBuilder.UseSqlServer("Data Source=MAIN-PC\\SQLEXPRESS;Initial Catalog=MyCourse;Integrated Security=true;TrustServerCertificate=true;");*/
+
+        => optionsBuilder.UseSqlite("Data Source=Data/MyCourse.db;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

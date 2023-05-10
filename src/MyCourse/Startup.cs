@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCourse.Models.Services.Application;
 using MyCourse.Models.Services.Infrastructure;
-using static MyCourse.Models.Services.Infrastructure.SQLServerDatabaseAccessor;
 
 namespace MYCourse
 {
@@ -29,7 +28,7 @@ namespace MYCourse
             services.AddTransient<IDatabaseAccessor,SqliteDatabaseAccessor>();
 
             // servizio ottenuto con SQLServer Management 
-            //services.AddTransient<IDatabaseAccessor,SQLServerDBAccess>();
+            //services.AddTransient<IDatabaseAccessor,SQLServerDatabaseAccessor>();
 
             // usare l'istanziamento dell'interfaccia AddScoped
             // il Core crea una nuova istanza del servizio e la riutilizza finché siamo nel contesto

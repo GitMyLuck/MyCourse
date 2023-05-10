@@ -6,9 +6,7 @@ using Microsoft.Data.SqlClient;
 
 namespace MyCourse.Models.Services.Infrastructure
 {
-    public class SQLServerDatabaseAccessor
-    {
-        public class SQLServerDBAccess : IDatabaseAccessor
+        public class SQLServerDatabaseAccessor : IDatabaseAccessor
     {
         public  async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
@@ -60,5 +58,5 @@ namespace MyCourse.Models.Services.Infrastructure
         
     
     }
-    }
+    
 }
