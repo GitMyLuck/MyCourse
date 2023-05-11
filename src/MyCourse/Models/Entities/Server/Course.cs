@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using MyCourse.Models.ValueObjects;
 
-namespace MyCourse.Models.Entities;
+namespace MYCourse.Models.Entities.Server;
 
 public partial class Course
 {
+    // costruttore
     public Course(string title, string author)
     {
         if (string.IsNullOrWhiteSpace(title))
@@ -20,6 +21,7 @@ public partial class Course
         Author = author;
         Lessons = new HashSet<Lesson>();
     }
+	
     public long Id { get; private set; }
 
     public string Title { get; private set; }
@@ -71,6 +73,5 @@ public partial class Course
         CurrentPrice = newDiscountPrice;
 
     }
-
     public virtual ICollection<Lesson> Lessons { get; set; } = new List<Lesson>();
 }
