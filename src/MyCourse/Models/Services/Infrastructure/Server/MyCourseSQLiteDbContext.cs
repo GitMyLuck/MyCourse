@@ -38,6 +38,29 @@ public partial class MyCourseSQLiteDbContext : DbContext
             
                                                 // caso in cui vi sia la necessità di indicare più chiavi primarie
                                                 // entity.HasKey( course => new {course.Id, course.Author});
+            entity.OwnsOne(course => course.CurrentPrice, builder => {
+                    builder.Property(money => money.Currency)
+                    .HasConversion<string>()
+                    .HasColumnName("CurrentPrice_Currency");
+                    builder.Property(money => money.Amount).HasColumnName("CurrentPrice_Amount");
+
+            });
+
+            entity.OwnsOne(course => course.FullPrice, builder => {
+                    builder.Property(money => money.Currency)
+                    .HasConversion<string>()
+                    .HasColumnName("FullPrice_Currency");
+                    builder.Property(money => money.Amount).HasColumnName("FullPrice_Amount");
+
+            });
+
+
+            //  Mapping per le relazioni
+            entity.HasMany(course => course.Lessons)
+                  .WithOne(lesson => lesson.Course)
+                  .HasForeignKey(Lesson => Lesson.CourseId);
+
+
             #region mapping generato automaticamente dal tool di reverse engineering
             /*
             entity.Property(e => e.Author)
@@ -74,6 +97,10 @@ public partial class MyCourseSQLiteDbContext : DbContext
 
         modelBuilder.Entity<Lesson>(entity =>
         {
+            
+            entity.HasOne(lesson => lesson.Course)
+                  .WithMany(course => Lessons);
+
             #region Mapping generato automaticamente dal tool di reverse engineering
             /*
             entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
